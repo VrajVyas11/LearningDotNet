@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "LearningDotNet",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/books": {
+      "get": {
+        "summary": "Gets all books",
+        "operationId": "Books_Get",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Book" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adds a new book",
+        "operationId": "Books_Post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Book" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/books/{id}": {
+      "get": {
+        "summary": "Gets a book by ID",
+        "operationId": "Books_GetById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Book" }
+              }
+            }
+          },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "summary": "Updates a book",
+        "operationId": "Books_Put",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Book" }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": { "description": "No Content" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "delete": {
+        "summary": "Deletes a book",
+        "operationId": "Books_Delete",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "No Content" },
+          "404": { "description": "Not Found" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "title": { "type": "string" },
+          "author": { "type": "string" },
+          "year": { "type": "integer", "format": "int32" }
+        },
+        "required": ["title", "author", "year"]
+      }
+    }
+  }
+}
