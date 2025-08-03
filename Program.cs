@@ -21,6 +21,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapControllers();
+// 👇 Put these in correct order
+app.UseDefaultFiles();  // Enables serving index.html at root "/"
+app.UseStaticFiles();   // Serves static files like index.html
+
+app.UseAuthorization(); // Only if you need it
+
+app.MapControllers();   // Map your API controllers
 
 app.Run();
